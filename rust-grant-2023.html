@@ -10,6 +10,8 @@
 <body>
 
   <h1>Please provide some background about yourself and your experience with Rust:</h1>
+<p>(I hope this renders OK, I had to write this in a markdown editor and copy the rendered output, since the editor widget bugs out hard for some reason)</p>
+<h2>About myself</h2>
 <p>I've been writing software professionally for 24 years, been around various bushes (Perl, PHP, Python, Java, C#, C, C++, Ruby, Objective-C, Go, JS, TS, Flash) developing mainly web backend and frontend applications, iOS and Android apps, and embedded projects. After I fell in love with Rust I came up with the elevator pitch &quot;Rust makes me sleep at night&quot;, because I've always been super anxious about some kind of bug I introduced would crash a BBC live TV show, the German Uber clone FreeNow, or a real-time trading platform with daily volumes in the millions of dollars (all real projects I've been involved with in a senior or lead position).</p>
 <h2>How long you have been involved with Rust</h2>
 <p>I learned Rust in 2018 for Advent Of Code, then used it mainly for various embedded projects and worked full time as trainer and senior developer for a year at Ferrous Systems (Jan 2021-2022). One particular highlight of my work at Ferrous: I was the <a href="https://github.com/esp-rs/std-training/commits/main?after=e7396d38b3df590e1f52486909ede37803496c23+594&amp;branch=main&amp;qualified_name=refs%2Fheads%2Fmain">sole developer</a> of the initial public version of the <a href="https://github.com/esp-rs/std-training">Embedded Rust Trainings for Espressif</a> training course.</p>
@@ -68,7 +70,71 @@
 <li><a href="https://github.com/knurling-rs/app-template/pull/58">app template documentation</a></li>
 </ul>
 </li>
-</body></html>
 </ul>
 <h2>Details of how you participate in the Rust community (virtually or in person)</h2>
 <p>I answer embedded and general questions in various rust embedded-related matrix channels and the two Rust discords.</p>
+
+
+  <h1>Please tell us about how you propose supporting the Rust project during your Fellowship year and what the benefit of your work will be for the Rust project and the wider community of users </h1>
+
+  <p>I am most passionate about <strong>embedded</strong> Rust, and think that it is still
+pretty underused both in hobbyist and professional spheres.</p>
+<p>Previously I have worked with Arduino/PlatformIO and
+MicroPython/CircuitPython, and on some levels the Rust experience is
+clearly superior, but in many areas still lacking. In particular I've
+always liked the interactive exploration of a Python REPL and the rich
+tooling and community content of Arduino. Inspired by these, I have
+created several projects of my own, among these:</p>
+<ul>
+<li>
+<p><a href="https://crates.io/crates/trenchcoat">trenchcoat</a>, a
+virtual machine that runs on embedded devices and in the browser,
+allowing instant code updates without a compile-flash-restart cycle</p>
+</li>
+<li>
+<p><a href="https://github.com/spookyvision/embedded-web-ui/">embedded web
+UI</a>,
+a browser-based UI to send commands to an embedded device and also
+receive data, e.g. for <a href="https://twitter.com/pandora9001/status/1565774226417655809">browser console logging, live display of
+accelerometer chart
+data</a>,
+or <a href="https://www.youtube.com/watch?v=OVQCu2fmVps">a real-time
+FFT</a></p>
+</li>
+</ul>
+<p>My goal is to further explore improvements in embedded Rust tooling by
+continuing work on these projects, developing of migration guides for
+people curious about Rust coming from other embedded platforms, and
+exploring further directions by doing case studies &amp; interviews. James
+Munns' <a href="https://github.com/OneVariable/research-archive/blob/main/Ideas/easier-embedded-rust.md">easier embedded
+Rust</a>
+(which already features contributions by me) will serve as a starting
+point.</p>
+<p>As one concrete example, Arduino has an integrated <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-plotter">plotting
+tool</a>
+whose functionality is pretty similar to part of what embedded-web-ui
+can provide, but it's far more polished than what I have to offer - for
+now!</p>
+<p>For interactive/explorative development I'm planning to build an actual
+on-device REPL, evaluating
+<a href="https://github.com/rhaiscript/rhai/">rhai</a> as potential
+alternative to trenchcoat.</p>
+<p>I strongly believe the Browser/WebAssembly platform is an excellent
+companion platform to embedded development - a lot of embedded crates
+can be recompiled to WASM without any changes, allowing users to
+experiment without having to wire up sensors, lights, debug probes etc.,
+and of course without the risk of causing hardware damage. I'm looking
+forward to enriching the ecosystem here - while
+<a href="https://wokwi.com/">wokwi</a> is already an excellent
+existing and free choice, it is not entirely open source and thus cannot
+be run indepently from the wokwi website. Also its approach (emulating a
+microcontroller and running on top of that) is by its nature less
+performant than rebuilding everything for WASM, so it appears to me that
+simulating high-speed signals would break wokwi, but could be made
+possible with a different platform.</p>
+
+  
+
+
+  </body></html>
+  
