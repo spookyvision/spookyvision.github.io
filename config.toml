@@ -111,7 +111,7 @@ full_copyright = """\
 [markdown]
 highlight_code = true
 # extra_syntaxes_and_themes = []
-highlight_theme = "gruvbox-dark"
+highlight_theme = "dracula"
 
 render_emoji = true
 
