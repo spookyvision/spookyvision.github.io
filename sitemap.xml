@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://spookyvision.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://spookyvision.github.io/blog/</loc>
+    </url>
+    <url>
+        <loc>https://spookyvision.github.io/blog/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://spookyvision.github.io/blog/test-blog-entry/</loc>
+        <lastmod>2022-07-25</lastmod>
+    </url>
+    <url>
+        <loc>https://spookyvision.github.io/categories/</loc>
+    </url>
+    <url>
+        <loc>https://spookyvision.github.io/tags/</loc>
+    </url>
+</urlset>
