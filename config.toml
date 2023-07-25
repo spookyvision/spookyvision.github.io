@@ -5,12 +5,139 @@ base_url = "https://anatol.versteht.es"
 compile_sass = true
 
 # Whether to build a search index to be used later on by a JavaScript library
-build_search_index = false
+build_search_index = true
 
-[markdown]
+theme = "ataraxia"
+default_language = "en"
+
+#[markdown]
 # Whether to do syntax highlighting
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = true
+#highlight_code = true
 
 [extra]
 # Put all your custom variables here
+author = "Anatol Ulrich"
+locale = "en_US"
+
+# Use a square image (same height as width)
+avatar = "images/avatar.jpg"
+
+# To use a favicon convert your image to https://realfavicongenerator.net/,
+# then download and copy the package to static/images/favicon
+favicon = true
+
+###########
+
+[extra.social]
+author_link = "https://anatol.versteht.es/"
+# The base URL of the site.
+base_url = "https://website-url.com/"
+avatar = "images/avatar.png"
+twitter = "@pandora9001"
+links = [
+    { name = "Email", url = "mailto:e+gh-pages@mail.taugt.net", icon = "bi-envelope-fill" },
+    { name = "GitHub", url = "https://github.com/spookyvision", icon = "bi-github" },
+    { name = "Twitter", url = "https://twitter.com/pandora9001", icon = "bi-twitter" },
+    { name = "LinkedIn", url = "https://www.linkedin.com/in/teresting-ball", icon = "bi-linkedin" },
+]
+
+###########
+
+# Ataraxia uses Bootstrap icons,
+# you can go to https://icons.getbootstrap.com/ to find the full list
+[extra.menus]
+nav = [
+    { name = "Home", url = "@/_index.md", icon = "bi-house" },
+    { name = "Blog", url = "@/blog/_index.md", icon = "bi-file-earmark-text" },
+    # { name = "Projects", url = "@/projects/_index.md", icon = "TODO" },
+    # { name = "Resume", url = "@/projects/_index.md", icon = "TODO" },
+    #    { name = "Author", url = "https://spookyvision.github.io/", icon = "bi-person" },
+    # { name = "About", url = "@/about/_index.md", icon = "bi-question-octagon" },
+]
+
+
+#    [extra.seo]
+#        google_analytics = "G-0123456789"
+#        google_search_console = "0123457890abcdefg"
+
+#    [extra.comments]
+#        disqus = "user"
+
+[extra.copyright]
+name = "CC BY-NC-SA 4.0"
+url = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+
+
+[languages]
+[languages.en]
+title = "Anatol Ulrich"
+description = "Digital Wizard"
+generate_feed = true
+feed_filename = "atom.xml"
+taxonomies = [
+    { name = "tags", feed = true, paginate_by = 5 },
+    { name = "categories", feed = true, paginate_by = 5 },
+]
+
+
+[languages.en.translations]
+post = "Post"
+category = "Category"
+tag = "Tag"
+search = "Search"
+
+404_message = "Page not found"
+
+by = "By"
+posted = "Posted"
+updated = "Updated"
+categories = "Categories"
+tags = "Tags"
+share = "Share"
+
+next = "Next"
+previous = "Previous"
+
+short_copyright = "Some rights reserved."
+full_copyright = """\
+            Except where otherwise noted, the blog posts on this site are \
+            licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International  \
+            ( CC BY-NC-SA 4.0) License by the author.\
+            """
+
+
+[markdown]
+highlight_code = true
+# extra_syntaxes_and_themes = []
+highlight_theme = "gruvbox-dark"
+
+render_emoji = true
+
+external_links_target_blank = true
+external_links_no_follow = true
+external_links_no_referrer = true
+
+smart_punctuation = false
+
+
+[search]
+include_title = true
+include_description = false
+include_path = false
+include_content = true
+# truncate_content_length = 100
+
+
+[link_checker]
+# skip_prefixes = []
+# skip_anchor_prefixes = []
+
+internal_level = "error"
+external_level = "error"
+
+
+[slugify]
+paths = "on"
+taxonomies = "on"
+anchors = "on"
