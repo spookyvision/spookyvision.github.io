@@ -33,14 +33,15 @@ favicon = true
 [extra.social]
 author_link = "https://anatol.versteht.es/"
 # The base URL of the site.
-base_url = "https://website-url.com/"
+base_url = "https://anatol.versteht.es/"
 avatar = "images/avatar.png"
 twitter = "@pandora9001"
 links = [
-    { name = "Email", url = "mailto:e+gh-pages@mail.taugt.net", icon = "bi-envelope-fill" },
     { name = "GitHub", url = "https://github.com/spookyvision", icon = "bi-github" },
+    { name = "Mastodon", url = "https://chaos.social/@dngrs", icon = "bi-mastodon" },
     { name = "Twitter", url = "https://twitter.com/pandora9001", icon = "bi-twitter" },
     { name = "LinkedIn", url = "https://www.linkedin.com/in/teresting-ball", icon = "bi-linkedin" },
+    { name = "Email", url = "mailto:e+gh-pages@mail.taugt.net", icon = "bi-envelope-fill" },
 ]
 
 ###########
