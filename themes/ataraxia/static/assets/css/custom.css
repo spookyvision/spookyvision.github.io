@@ -12654,4 +12654,8 @@ a:hover {
   background-color: #f1f3f5;
 }
 
+p>img {
+  max-width: 100%;
+}
+
 /*# sourceMappingURL=custom.css.map */
