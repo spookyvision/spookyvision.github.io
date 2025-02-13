@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How I learned to start worrying and stop the AI marketing - Anatol Ulrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="stylesheet" href="https://spookyvision.github.io/assets/css/custom.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"><link rel="apple-touch-icon" sizes="180x180" href="https://spookyvision.github.io/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://spookyvision.github.io/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://spookyvision.github.io/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://spookyvision.github.io/images/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://spookyvision.github.io/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#ffffff"><link rel="canonical" href="https://spookyvision.github.io/blog/llmnt/" /><link rel="alternate" type="application/atom+xml"
+        title="RSS" href="https://spookyvision.github.io/atom.xml"
+      ><meta name="author" content="Anatol Ulrich"><meta property="article:published_time" content='2025-02-13' /><meta name="generator" content="Zola">
+  <meta property="og:title" content="How I learned to start worrying and stop the AI marketing" />
+  <meta property="og:url" content="https://spookyvision.github.io/blog/llmnt/" /><meta property="og:site_name" content="Anatol Ulrich" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" /><meta name="twitter:creator" content="@pandora9001" />
+  
+</head>
+<body>
+  <div class="container-fluid vh-100">
+    <div class="row h-100"><div
+    class="sidebar d-none d-lg-block col-lg-3 col-xl-2 mh-100 p-0 overflow-auto"
+  >
+    <aside class="d-flex flex-column justify-content-between h-100">
+      <div class="d-none d-md-block mb-4 pt-5 px-4 text-center">
+        <div class="sidebar-avatar mb-2 mx-auto border border-3 rounded-circle">
+          <a href="https://anatol.versteht.es/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://spookyvision.github.io/images/avatar.jpg"
+      alt="Anatol Ulrich"
+      class="img-fluid"
+    >
+  </a>
+        </div>
+        <div class="mb-1">
+          <a
+            href="https://spookyvision.github.io"
+            class="sidebar-title fs-5 fw-bold text-decoration-none"
+          >
+            Anatol Ulrich
+          </a>
+        </div>
+        <div class="fw-light">
+          Digital Wizard
+        </div>
+      </div>
+
+      <div class="sidebar-nav list-group my-auto rounded-0 text-center"><a
+        href="https://spookyvision.github.io/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Home"
+      >
+        <span class="sidebar-nav-icon bi bi-house d-none fs-4"></span>
+        <span class="sidebar-nav-text d-none d-md-inline">
+          Home
+        </span>
+      </a><a
+        href="https://spookyvision.github.io/blog/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Blog"
+      >
+        <span class="sidebar-nav-icon bi bi-file-earmark-text d-none fs-4"></span>
+        <span class="sidebar-nav-text d-none d-md-inline">
+          Blog
+        </span>
+      </a></div>
+
+      <div class="sidebar-social d-none d-md-block mt-4 pb-4 px-4">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-auto px-2">
+        <a
+          href="https://github.com/spookyvision"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='GitHub'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-github"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://chaos.social/@dngrs"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Mastodon'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-mastodon"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://twitter.com/pandora9001"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Twitter'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-twitter"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://www.linkedin.com/in/teresting-ball"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='LinkedIn'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-linkedin"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="mailto:e+gh-pages@mail.taugt.net"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Email'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-envelope-fill"></span>
+        </a>
+      </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div><div class="col mh-100 overflow-auto px-0"><nav
+    class="navbar navbar-expand navbar-bg-light sticky-top border-bottom"
+  >
+    <div class="container-fluid"><button
+        type="button"
+        class="btn d-block d-lg-none fs-5"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+        aria-controls="offcanvas"
+      >
+        <span class="bi bi-list"></span>
+      </button>
+      
+      <div class="col-8">
+        
+          <div class="row justify-content-center justify-content-lg-start p-2 ps-xl-3 text-center"><div class="col-auto d-none d-xl-block">
+        <a
+          href="https://spookyvision.github.io/blog/"
+          class="text-decoration-none"
+        >
+          Blog
+        </a>
+      </div>
+      <div class="col-auto d-none d-xl-block">
+        <span class="text-secondary">
+          »
+        </span>
+      </div><div class="col-auto">
+      <span
+        class="d-inline d-sm-none text-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-title="How I learned to start worrying and stop the AI marketing"
+      >
+        How I learned to…
+      </span>
+      <span
+        class="d-none d-sm-inline text-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-title="How I learned to start worrying and stop the AI marketing"
+      >
+        How I learned to start worrying and stop…
+      </span>
+    </div>
+  </div>
+        
+      </div>
+
+      <button
+    type="button" data-bs-toggle="modal" data-bs-target="#searchModal"
+    class="btn border border-0"
+  >
+    <span class="bi bi-search fs-5"></span>
+  </button>
+    </div>
+  </nav><div class="d-flex flex-column h-100"><main class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-11 col-lg-10 col-xxl-9">
+        <h1 class="mb-3">
+          How I learned to start worrying and stop the AI marketing
+        </h1>
+        <div class="row mb-3">
+          <div class="col-auto mb-2">
+            <small class="text-muted">
+              <time datetime="2025-02-13">
+                <a 
+                  href="#" data-bs-toggle="tooltip"
+                  data-bs-title="Thursday, February 13, 2025 12:00:00 AM UTC"
+                  class="text-muted text-decoration-none"
+                >
+                  February 13, 2025
+                </a>
+              </time>
+            </small>
+          </div>
+          
+        </div><div class="mb-5">
+          <h2 id="advocating-for-the-use-of-ai-as-a-teacher-is-dangerously-misguided">Advocating for the use of AI as a teacher is dangerously misguided</h2>
+<p>In his most recent <a rel="noopener nofollow noreferrer" target="_blank" href="https://smallcultfollowing.com/babysteps/blog/2025/02/10/love-the-llm/">blog post</a> &quot;How I learned to stop worrying and love the LLM&quot;, Niko Matsakis boldly proclaims:</p>
+<blockquote>
+<p>AI’s ability to explain and diagnose problems with rich context can help people get over the initial bump of learning Rust in a way that canned diagnostics never could, no matter how hard we try.</p>
+</blockquote>
+<p>It's time to call a spade a spade: this is a <strong>lie</strong>. Let's see what state of the art so-called AI <a rel="noopener nofollow noreferrer" target="_blank" href="https://mastodon.online/@jeancf/113560582675169102">has to say</a> about Rust fundamentals:</p>
+<p><img src="../box-lol.png" alt="Sent by you: when you clone a Box in rust, does the data on the heap get replicated? - Sent by Copilot: When you clone a Box in Rust, the data on the heap does not get replicated. Instead, the Box itself is cloned, meaning a new Box is created that points to the same data on the heap as the original Box. This is because Box is a smart pointer, and cloning it only duplicates the pointer, not the data it points to.If you need to clone the data on the heap as well, you would need to implement the Clone trait for the data type and then explicitly clone the data inside the Box. Does that help clarify things?" /></p>
+<p>In case you were wondering: this response is completely wrong - <code>Box</code> clones its contents.</p>
+<p>Like the cryptocurrency grift that came before it, the AI hype machine dangles a golden carrot in front of us, promising an unbearably bright and shiny future that's <em>just around the corner</em>, we're almost there, you just gotta believe and throw more money or other resources at the idea!</p>
+<p>Strangely this future never arrives. <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/mdn/yari/issues/9208">We've tried this before</a> (I also recommend reading the <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/mdn/yari/issues/9230">follow-up discussion</a>. It's long and infuriating, but worth it). Niko more or less admits:</p>
+<blockquote>
+<p>AI-based code assistants right now don’t really have this property. I’ve noticed that I kind of have to pick between “shallow but correct” or “deep but hallucinating”.</p>
+</blockquote>
+<p>... but this also contains <strong>another lie</strong>. Specifically: &quot;shallow but correct&quot; isn't a thing for LLMs. The technology fundamentally cannot do <em>anything except</em> hallucinate, since it is based purely on tokens which carry no inherent meaning whatsoever - LLMs have zero idea what facts even are, whether they made a mistake, how to correct said mistake, or for that matter, what a citation is - as demonstrated by the screenshot above. </p>
+<blockquote>
+<p>Rust’s emphasis on “reliability” makes it a great target for AI</p>
+</blockquote>
+<p>No it doesn't! LLMs are optimized for plausibility, not correctness (they can't ever be correct, as argued above), and managing to successfully smuggle anything past <code>rustc</code> merely means you're not violating what the language dictates. It does emphatically <strong>not</strong> mean your program is correct. Especially a language and ecosystem where one of the main goals is mission critical safety and reliability should never get sabotaged by a text extruder that has been trained to merely sound convincing.</p>
+<p>Let's not get deluded by people with <a rel="noopener nofollow noreferrer" target="_blank" href="https://aws.amazon.com/ai/">skin in the game</a> (Niko works for Amazon). 
+The emperor has no clothes - or clues.</p>
+
+        </div>
+        
+        
+      </div>
+    </div>
+  </main><div class="container">
+    <div class="row justify-content-center mt-3 mb-4">
+      <div class="col-11 col-lg-10 col-xxl-9"></div>
+    </div>
+  </div><footer class="container-fluid mt-auto">
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <div class="row pt-3 pb-4 border-top">
+          <div class="col-12 col-md-6 mb-2 mb-md-0 text-center text-md-start">
+            <small class="text-secondary">
+              © 2025
+              <a 
+                href="https://anatol.versteht.es/"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Anatol Ulrich&period;
+              </a>
+              <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                data-bs-toggle="tooltip"
+                data-bs-title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International  ( CC BY-NC-SA 4.0) License by the author."
+                class="text-secondary text-decoration-none"
+              >
+                Some rights reserved.
+              </a>
+            </small>
+          </div>
+          <div class="col-12 col-md-6 text-center text-md-end">
+            <small class="text-secondary">
+              Powered by
+              <a 
+                href="https://www.getzola.org/"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Zola
+              </a>
+              with
+              <a 
+                href="https://github.com/gersonbdev/ataraxia-zola"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Ataraxia
+              </a>
+              theme.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-body p-0">
+      <div class="sidebar container-fluid vh-100">
+        <div class="row h-100">
+          <div
+            class="col mh-100 px-0 overflow-auto"
+          >
+            <aside class="d-flex flex-column justify-content-between h-100">
+              <div class="mb-4 pt-5 px-3 text-center">
+                <div class="sidebar-avatar mb-2 mx-auto border border-3 rounded-circle">
+                  <a href="https://anatol.versteht.es/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://spookyvision.github.io/images/avatar.jpg"
+      alt="Anatol Ulrich"
+      class="img-fluid"
+    >
+  </a>
+                </div>
+                <div>
+                  <a
+                    href="https://spookyvision.github.io"
+                    class="sidebar-title fs-5 fw-bold text-decoration-none"
+                  >
+                    Anatol Ulrich
+                  </a>
+                </div>
+              </div>
+
+              <div class="sidebar-nav list-group my-auto rounded-0 text-start"><a
+        href="https://spookyvision.github.io/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Home"
+      >
+        <span class="sidebar-nav-icon bi bi-house ms-2 me-1 fs-4"></span>
+        <span class="sidebar-nav-text">Home</span>
+      </a><a
+        href="https://spookyvision.github.io/blog/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Blog"
+      >
+        <span class="sidebar-nav-icon bi bi-file-earmark-text ms-2 me-1 fs-4"></span>
+        <span class="sidebar-nav-text">Blog</span>
+      </a></div>
+
+              <div class="sidebar-social mt-4 pb-4 px-3">
+                <div class="container-fluid">
+                  <div class="row justify-content-center">
+                    <div class="col-auto px-2">
+        <a
+          href="https://github.com/spookyvision"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='GitHub'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-github"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://chaos.social/@dngrs"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Mastodon'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-mastodon"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://twitter.com/pandora9001"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Twitter'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-twitter"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://www.linkedin.com/in/teresting-ball"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='LinkedIn'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-linkedin"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="mailto:e+gh-pages@mail.taugt.net"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Email'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-envelope-fill"></span>
+        </a>
+      </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">
+          Search
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div
+          id="searchInput" role="search" 
+          class="d-flex mb-3 border rounded-5 bg-white"
+        >
+          <input
+            id="search" type="search"
+            class="form-control border border-0 rounded-5 rounded-end"
+            placeholder="Search"
+            aria-label="Search"
+          >
+          <div class="rounded-5 rounded-start py-2 ps-2 pe-3">
+            <span class="bi bi-search"></span>
+          </div>
+        </div>
+        <div class="search-results">
+          <div class="search-results__items">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src="https://spookyvision.github.io/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    const myModal = document.getElementById('searchModal');
+    const myInput = document.getElementById('searchInput');
+
+    myModal.addEventListener('shown.bs.modal', () => {
+      myInput.focus()
+    });
+  </script>
+  <script src="https://spookyvision.github.io/elasticlunr.min.js"></script>
+  <script src="https://spookyvision.github.io/search_index.en.js"></script><script src="https://spookyvision.github.io/assets/js/search/search.js"></script>
+</body>
+</html>

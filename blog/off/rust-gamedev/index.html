@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaving Rust gamedev after 3 years: a measured response - Anatol Ulrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="stylesheet" href="https://spookyvision.github.io/assets/css/custom.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"><link rel="apple-touch-icon" sizes="180x180" href="https://spookyvision.github.io/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://spookyvision.github.io/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://spookyvision.github.io/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://spookyvision.github.io/images/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://spookyvision.github.io/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#ffffff"><link rel="canonical" href="https://spookyvision.github.io/blog/off/rust-gamedev/" /><link rel="alternate" type="application/atom+xml"
+        title="RSS" href="https://spookyvision.github.io/atom.xml"
+      ><meta name="author" content="Anatol Ulrich"><meta property="article:published_time" content='2024-07-15' /><meta name="generator" content="Zola">
+  <meta property="og:title" content="Leaving Rust gamedev after 3 years: a measured response" />
+  <meta property="og:url" content="https://spookyvision.github.io/blog/off/rust-gamedev/" /><meta property="og:site_name" content="Anatol Ulrich" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" /><meta name="twitter:creator" content="@pandora9001" />
+  
+</head>
+<body>
+  <div class="container-fluid vh-100">
+    <div class="row h-100"><div
+    class="sidebar d-none d-xl-block col-auto mh-100 p-0 overflow-auto"
+  >
+    <aside class="d-flex flex-column justify-content-between h-100">
+      <div class="d-none mb-4 pt-5 px-4 text-center">
+        <div class="sidebar-avatar mb-2 mx-auto border border-3 rounded-circle">
+          <a href="https://anatol.versteht.es/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://spookyvision.github.io/images/avatar.jpg"
+      alt="Anatol Ulrich"
+      class="img-fluid"
+    >
+  </a>
+        </div>
+        <div class="mb-1">
+          <a
+            href="https://spookyvision.github.io"
+            class="sidebar-title fs-5 fw-bold text-decoration-none"
+          >
+            Anatol Ulrich
+          </a>
+        </div>
+        <div class="fw-light">
+          Digital Wizard
+        </div>
+      </div>
+
+      <div class="sidebar-nav list-group my-auto rounded-0 text-center"><a
+        href="https://spookyvision.github.io/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Home"
+      >
+        <span class="sidebar-nav-icon bi bi-house d-none d-xl-inline fs-4"></span>
+        <span class="sidebar-nav-text d-none">
+          Home
+        </span>
+      </a><a
+        href="https://spookyvision.github.io/blog/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Blog"
+      >
+        <span class="sidebar-nav-icon bi bi-file-earmark-text d-none d-xl-inline fs-4"></span>
+        <span class="sidebar-nav-text d-none">
+          Blog
+        </span>
+      </a></div>
+
+      <div class="sidebar-social d-none mt-4 pb-4 px-4">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-auto px-2">
+        <a
+          href="https://github.com/spookyvision"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='GitHub'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-github"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://chaos.social/@dngrs"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Mastodon'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-mastodon"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://twitter.com/pandora9001"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Twitter'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-twitter"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://www.linkedin.com/in/teresting-ball"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='LinkedIn'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-linkedin"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="mailto:e+gh-pages@mail.taugt.net"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Email'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-envelope-fill"></span>
+        </a>
+      </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div><div class="col mh-100 overflow-auto px-0"><nav
+    class="navbar navbar-expand navbar-bg-light sticky-top border-bottom"
+  >
+    <div class="container-fluid"><button
+        type="button"
+        class="btn d-block d-xl-none fs-5"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+        aria-controls="offcanvas"
+      >
+        <span class="bi bi-list"></span>
+      </button>
+      
+      <div class="col-8">
+        
+          <div class="row justify-content-center justify-content-xl-start p-2 ps-xl-3 text-center"><div class="col-auto">
+      <span
+        class="d-inline d-sm-none text-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-title="Leaving Rust gamedev after 3 years: a measured response"
+      >
+        Leaving Rust gam…
+      </span>
+      <span
+        class="d-none d-sm-inline text-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-title="Leaving Rust gamedev after 3 years: a measured response"
+      >
+        Leaving Rust gamedev after 3 years: a me…
+      </span>
+    </div>
+  </div>
+        
+      </div>
+
+      <button
+    type="button" data-bs-toggle="modal" data-bs-target="#searchModal"
+    class="btn border border-0"
+  >
+    <span class="bi bi-search fs-5"></span>
+  </button>
+    </div>
+  </nav><div class="d-flex flex-column h-100"><main class="container">
+    <div class="row justify-content-center mt-5 mb-5">
+      <div class="col-11 col-lg-10 col-xxl-9">
+        <h1 class="mb-4 display-4">
+          Leaving Rust gamedev after 3 years: a measured response
+        </h1>
+        <h1 id="todo">TODO</h1>
+<ul>
+<li>update playground to use new lock primitives? or at least RWLock</li>
+<li>or maybe the lock primitives were sth else... anyway mention https://blog.rust-lang.org/2024/07/25/Rust-1.80.0.html</li>
+</ul>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://loglog.games/blog/leaving-rust-gamedev/">This article</a> went pretty viral when it , and for good reason. It's written by an experienced developer who devoted a lot of time to Rust, really tried to like it, and ultimately didn't. 
+As such it provides deep insight into shortcomings of both the Rust language and available game engines. A lot of work went into it, and I honestly think it's great that it exists - even though I like Rust a lot more than the author, valid criticism is important for any kind of system to stay healthy and improve.</p>
+<p>That said, I don't agree with all the points made, and even though my game development experience is much more limited (not <em>purely</em> armchair, though), I feel like adding my perspective. I don't like this to be a one-sided effort though, so I'll be quote-replying to sections where I disagree but also ones where I'm on the same page.</p>
+<p>Let's dive in. If you're short on time, check out the TODO LINK conclusion!</p>
+<h2 id="intro">Intro</h2>
+<blockquote>
+<p>I'm looking at things from the perspective of &quot;I want to make a game in 3-12 months maximum and release it so that people can play it and I can make some money from it.&quot;. </p>
+</blockquote>
+<p>This is a valid warning. Especially if you're new to Rust you're likely not going to be super productive in it at first - it's not the easiest language to pick up. However it is definitely possible to ship a successful indie game in it, even as a solo developer with no previous Rust experience, as evidenced by <a rel="noopener nofollow noreferrer" target="_blank" href="https://www.reddit.com/r/rust/comments/18ul125/writing_a_game_in_rust_the_gnorp_apologue/">(the) Gnorp Apologue</a>.</p>
+<blockquote>
+<p>The community as a whole is overwhelmingly focused on tech, to the point where the &quot;game&quot; part of game development is secondary. As an example of this, I remember one time a discussion around the Rust Gamedev Meetup, that while was probably done jokingly was still imo illustrative of the issue, with something like &quot;someone wants to present a game at the meetup, is that even allowed?&quot;</p>
+</blockquote>
+<p>A bit of a sweeping generalization, but fair enough. Also the question is pretty funny. I do want to add though that this isn't a Rust specific issue by far, everyone wants to write game engines. Guilty as charged myself!
+I just wouldn't go so far as to imply or outright state you can't use Rust for anything more than tech demos. 
+Now, would I <em>recommend</em> doing game development in Rust? Not wholeheartedly! For many kinds of project I'd say, first check out e.g. Godot - a feature rich editor can be a very valuable asset.</p>
+<h2 id="once-you-get-good-at-rust-all-of-these-problems-will-go-away">Once you get good at Rust all of these problems will go away</h2>
+<blockquote>
+<p>The most fundamental issue is that the borrow checker forces a refactor at the most inconvenient times. Rust users consider this to be a positive, because it makes them &quot;write good code&quot;, but the more time I spend with the language the more I doubt how much of this is true. Good code is written by iterating on an idea and trying things out, and while the borrow checker can force more iterations, that does not mean that this is a desirable way to write code.</p>
+</blockquote>
+<p>I actually don't consider a forced refactoring a 100% positive thing, but I can see where this attitude comes from. In a grand scheme of things I agree with the author's point: it's often not exactly easy to try something out quickly in Rust. You need to do a <em>lot</em> more typing than in for example Python (though I usually don't mind this <em>much</em>, thanks to rust-analyzer), and the language demands you be a bit of an architect pretty much at all times. On top of that build times can become an issue with larger frameworks, turning repeated iteration on ideas into a chore. Dynamic linking (explained in Bevy docs) can help, but it's still not all roses. The holy grail of hot reloading remains elusive, though recently a <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/chamons/game-hotreload-example">WASM based experiment</a> came out of the woodwork - curious about future developments, WASM is a platform I hold in pretty high regard generally. All in all it's a very valid point though.</p>
+<p>On the other hand I've never had a more pleasant experience doing refactorings than in Rust, thanks to the type system catching all my mistakes and enabling me to do it with an absolutely minimal amount of brainpower. I've literally ported firmware to a different microcontroller platform being extremely sleep deprived and it worked on the first successful build. The articles states pretty much this later on too though, so we're not arguing.</p>
+<p>And regarding lifetime anno(y)tations in particular, if you're not on a performance critical path it's always an option to use <code>(A)Rc</code>, <code>Box</code>, <code>clone()</code>, a <code>Context</code> object, etc. I do 100% agree that lifetime related refactoring is a big PITA, so they should really be avoided as long as you can.</p>
+<blockquote>
+<p>In Rust, sometimes just doing a thing is not possible, because the thing you might need to do is not available in the place where you're doing the thing, and you end up being <em>made</em> to refactor by the compiler, even if you know the code is mostly throwaway.</p>
+</blockquote>
+<p>You can totally have shared mutable globals in Rust. <a rel="noopener nofollow noreferrer" target="_blank" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2021&amp;gist=65a9114b61727ba76407eb922de2ec10">Here, I wrote you one</a>. Granted: <code>std::sync::OnceLock</code> is kinda new. Before it appeared we had to rely on 3rd party crates like <code>lazy_static</code> or <code>once_cell</code>, and it's admittedly hard to keep track of all useful (or even essential) crates. This is indicative of a young ecosystem where not everything important has a best practice yet, solutions might be clumsy or not even established yet. Definitely in general an area where Rust can still improve a lot!</p>
+<h2 id="rust-being-great-at-big-refactorings-solves-a-largely-self-inflicted-issues-with-the-borrow-checker">Rust being great at big refactorings solves a largely self-inflicted issues with the borrow checker</h2>
+<p>This section mostly restates refactoring woes from the previous one so I won't rehash those.</p>
+<blockquote>
+<p>I'd argue as far as <em>maintainability being the wrong value for indie games</em>, as what we should strive for is iteration speed. </p>
+</blockquote>
+<p>Ideally we'd have both (you don't want a terrible spaghetti situation when your project becomes an unexpected hit), but in terms of priorities: yes - and iteration speed is a pain point, as discussed before.</p>
+<blockquote>
+<p>Other languages allow much easier workarounds for immediate problems without necessarily sacrificing code quality. In Rust, it's always a choice of <em>do I add an 11th parameter to this function, or add another <code>Lazy&lt;AtomicRefCell&lt;T&gt;&gt;</code>, or do I put this in another god object, or do I add indirection and worsen my iteration experience, or do I spend time redesigning this part of code yet again.</em></p>
+</blockquote>
+<p>I would really have loved 1-2 concrete examples here, especially a comparison with the author's preferred approach because I do think this particular kind of pain is somewhat overstated and <em>can</em> typically be solved in a satisfactory way. I mean: if you're used to just having mutable pointers to everything you want then yes, the required object hierarchy in Rust <em>will</em> make you sad but I'd argue that's not exactly good code quality on your end. I do sympathize: sometimes you just want to hack something in and rustc won't let you. It can be frustrating. It can be a case of &quot;I know this is safe, just let me do it&quot;, and maybe you're even right (but oh boy will things explode if you're not. I spent months chasing a double free in a C++ codebase that always manifested in my component but ultimately turned out to be in the underlying cocos2d-x library).</p>
+<h2 id="indirection-only-solves-some-problems-and-always-at-the-cost-of-dev-ergonomics">Indirection only solves some problems, and always at the cost of dev ergonomics</h2>
+<p>I like this section a lot - it is rather Bevy-specific though, so less indicative of a problem with the language and more with the ecosystem. Still, it's a great concrete example of a situation where an ECS might cause you a lot of frustration. Since one of the main Bevy maintainers was quite sympathetic to the article I hope this is one of the parts that will lead to more sophisticated APIs in Bevy, or even the development a mature non-ECS game engine.
+Bevy is a very impressive project, but in terms of game engines it is <em>very</em> young, and especially if LogLog Games tried to work with it 3 years ago it must've really been too immature to work with. A <a rel="noopener nofollow noreferrer" target="_blank" href="https://mastodon.gamedev.place/@alice_i_cecile/112515740546806334">draft roadmap to version 1.0</a> was just published in May 2024!</p>
+<h2 id="ecs-solves-the-wrong-kind-problem">ECS solves the wrong kind problem</h2>
+<p>&quot;If all you have is a hammer...&quot; is surely a mentality prone to causing problems. Though I wouldn't go so far as to say ECS is <em>never</em> the right solution either.</p>
+<blockquote>
+<p><code>Rc&lt;RefCell&lt;T&gt;&gt;</code> combined with weak pointers. While this could work, in games performance matters, and the overhead of these is non-trivial due to memory locality.</p>
+</blockquote>
+<p>This could be a very interesting research project - can we optimize locality somehow? It is an important aspect for hot loops. But I wouldn't rule this solution out entirely, at least not without benchmarking. And let's not rule out <code>Rc&lt;Refcell&lt;Vec&lt;T&gt;&gt;&gt;</code> for locality.</p>
+<p>What follows is a discussion of generational arenas, which sound great for certain kinds of situations. Definitely a tool to keep in your belt, along with bump allocators or other custom memory management solutions. Impatiently waiting for <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/rust-lang/rust/issues/32838"><code>allocator_api</code></a> to get stabilized…</p>
+<p>Back to ECS:</p>
+<blockquote>
+<p>It should also be noted that the approach of &quot;splitting up components into as small as possible for maximum reuse&quot; is something that is very often cited as a virtue. I've been in countless arguments where someone tried to convince me how I absolutely should be separating <code>Position</code> and <code>Health</code> out of my objects, and how my code is spaghetti if I'm not doing that. 
+Having tried those approaches quite a few times, I'm now very much on the <em>hard disagree</em> side in complete generality, unless maximum performance is of concern, and then I'd concede on this point only for those entities where this performance concern matters. </p>
+</blockquote>
+<p>Philosophically, to me, components are pretty similar to <em>fields</em>, and you wouldn't want a combined <code>position_health</code> field either, no? It can (and should) be argued that a single global namespace for those fields isn't ideal, it certainly doesn't sound scalable. Also I feel coming up with a &quot;perfect&quot; component design can become something done just for its own sake with no tangible benefits.</p>
+<p>Let's see what the future brings.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>TODO
+- some good points, some bad
+- bevy centric
+- weird hangups about perceived attitude
+- but some devs are assholes, eg lots of python hate whyyyy
+- let's RIIR with love bruh
+- The elephant in the room: dispatch in Rust can be really annoying
+TODO </p>
+<ul>
+<li>lots of non intuitive front loading required</li>
+<li>rustc fights you tooth and nail against quick hacks (but you CAN have them)</li>
+<li>Rust is immature 
+<ul>
+<li>1.80 LazyCell bla</li>
+<li>tooling: cargo, debug, bla - RA amazing but debugging hm bleh (in general mention downsides the article did NOT go into;)</li>
+<li>libraries, C/++ reigns supreme
+<ul>
+<li>juce</li>
+<li>fmod</li>
+<li>(game) UI - https://mastodon.gamedev.place/@alice_i_cecile/112837834583301070
+<ul>
+<li>no a10y</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+  </main><footer class="container-fluid mt-auto">
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <div class="row pt-3 pb-4 border-top">
+          <div class="col-12 col-md-6 mb-2 mb-md-0 text-center text-md-start">
+            <small class="text-secondary">
+              © 2025
+              <a 
+                href="https://anatol.versteht.es/"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Anatol Ulrich&period;
+              </a>
+              <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                data-bs-toggle="tooltip"
+                data-bs-title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International  ( CC BY-NC-SA 4.0) License by the author."
+                class="text-secondary text-decoration-none"
+              >
+                Some rights reserved.
+              </a>
+            </small>
+          </div>
+          <div class="col-12 col-md-6 text-center text-md-end">
+            <small class="text-secondary">
+              Powered by
+              <a 
+                href="https://www.getzola.org/"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Zola
+              </a>
+              with
+              <a 
+                href="https://github.com/gersonbdev/ataraxia-zola"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Ataraxia
+              </a>
+              theme.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-body p-0">
+      <div class="sidebar container-fluid vh-100">
+        <div class="row h-100">
+          <div
+            class="col mh-100 px-0 overflow-auto"
+          >
+            <aside class="d-flex flex-column justify-content-between h-100">
+              <div class="mb-4 pt-5 px-3 text-center">
+                <div class="sidebar-avatar mb-2 mx-auto border border-3 rounded-circle">
+                  <a href="https://anatol.versteht.es/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://spookyvision.github.io/images/avatar.jpg"
+      alt="Anatol Ulrich"
+      class="img-fluid"
+    >
+  </a>
+                </div>
+                <div>
+                  <a
+                    href="https://spookyvision.github.io"
+                    class="sidebar-title fs-5 fw-bold text-decoration-none"
+                  >
+                    Anatol Ulrich
+                  </a>
+                </div>
+              </div>
+
+              <div class="sidebar-nav list-group my-auto rounded-0 text-start"><a
+        href="https://spookyvision.github.io/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Home"
+      >
+        <span class="sidebar-nav-icon bi bi-house ms-2 me-1 fs-4"></span>
+        <span class="sidebar-nav-text">Home</span>
+      </a><a
+        href="https://spookyvision.github.io/blog/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Blog"
+      >
+        <span class="sidebar-nav-icon bi bi-file-earmark-text ms-2 me-1 fs-4"></span>
+        <span class="sidebar-nav-text">Blog</span>
+      </a></div>
+
+              <div class="sidebar-social mt-4 pb-4 px-3">
+                <div class="container-fluid">
+                  <div class="row justify-content-center">
+                    <div class="col-auto px-2">
+        <a
+          href="https://github.com/spookyvision"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='GitHub'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-github"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://chaos.social/@dngrs"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Mastodon'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-mastodon"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://twitter.com/pandora9001"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Twitter'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-twitter"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://www.linkedin.com/in/teresting-ball"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='LinkedIn'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-linkedin"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="mailto:e+gh-pages@mail.taugt.net"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Email'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-envelope-fill"></span>
+        </a>
+      </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">
+          Search
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div
+          id="searchInput" role="search" 
+          class="d-flex mb-3 border rounded-5 bg-white"
+        >
+          <input
+            id="search" type="search"
+            class="form-control border border-0 rounded-5 rounded-end"
+            placeholder="Search"
+            aria-label="Search"
+          >
+          <div class="rounded-5 rounded-start py-2 ps-2 pe-3">
+            <span class="bi bi-search"></span>
+          </div>
+        </div>
+        <div class="search-results">
+          <div class="search-results__items">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src="https://spookyvision.github.io/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    const myModal = document.getElementById('searchModal');
+    const myInput = document.getElementById('searchInput');
+
+    myModal.addEventListener('shown.bs.modal', () => {
+      myInput.focus()
+    });
+  </script>
+  <script src="https://spookyvision.github.io/elasticlunr.min.js"></script>
+  <script src="https://spookyvision.github.io/search_index.en.js"></script><script src="https://spookyvision.github.io/assets/js/search/search.js"></script>
+</body>
+</html>

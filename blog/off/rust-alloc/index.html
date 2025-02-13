@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom allocators in Rust - Anatol Ulrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="stylesheet" href="https://spookyvision.github.io/assets/css/custom.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"><link rel="apple-touch-icon" sizes="180x180" href="https://spookyvision.github.io/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://spookyvision.github.io/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://spookyvision.github.io/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://spookyvision.github.io/images/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://spookyvision.github.io/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#ffffff"><link rel="canonical" href="https://spookyvision.github.io/blog/off/rust-alloc/" /><link rel="alternate" type="application/atom+xml"
+        title="RSS" href="https://spookyvision.github.io/atom.xml"
+      ><meta name="author" content="Anatol Ulrich"><meta property="article:published_time" content='2023-08-22' /><meta name="generator" content="Zola">
+  <meta property="og:title" content="Custom allocators in Rust" />
+  <meta property="og:url" content="https://spookyvision.github.io/blog/off/rust-alloc/" /><meta property="og:site_name" content="Anatol Ulrich" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" /><meta name="twitter:creator" content="@pandora9001" />
+  
+</head>
+<body>
+  <div class="container-fluid vh-100">
+    <div class="row h-100"><div
+    class="sidebar d-none d-xl-block col-auto mh-100 p-0 overflow-auto"
+  >
+    <aside class="d-flex flex-column justify-content-between h-100">
+      <div class="d-none mb-4 pt-5 px-4 text-center">
+        <div class="sidebar-avatar mb-2 mx-auto border border-3 rounded-circle">
+          <a href="https://anatol.versteht.es/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://spookyvision.github.io/images/avatar.jpg"
+      alt="Anatol Ulrich"
+      class="img-fluid"
+    >
+  </a>
+        </div>
+        <div class="mb-1">
+          <a
+            href="https://spookyvision.github.io"
+            class="sidebar-title fs-5 fw-bold text-decoration-none"
+          >
+            Anatol Ulrich
+          </a>
+        </div>
+        <div class="fw-light">
+          Digital Wizard
+        </div>
+      </div>
+
+      <div class="sidebar-nav list-group my-auto rounded-0 text-center"><a
+        href="https://spookyvision.github.io/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Home"
+      >
+        <span class="sidebar-nav-icon bi bi-house d-none d-xl-inline fs-4"></span>
+        <span class="sidebar-nav-text d-none">
+          Home
+        </span>
+      </a><a
+        href="https://spookyvision.github.io/blog/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Blog"
+      >
+        <span class="sidebar-nav-icon bi bi-file-earmark-text d-none d-xl-inline fs-4"></span>
+        <span class="sidebar-nav-text d-none">
+          Blog
+        </span>
+      </a></div>
+
+      <div class="sidebar-social d-none mt-4 pb-4 px-4">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-auto px-2">
+        <a
+          href="https://github.com/spookyvision"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='GitHub'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-github"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://chaos.social/@dngrs"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Mastodon'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-mastodon"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://twitter.com/pandora9001"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Twitter'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-twitter"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://www.linkedin.com/in/teresting-ball"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='LinkedIn'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-linkedin"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="mailto:e+gh-pages@mail.taugt.net"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Email'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-envelope-fill"></span>
+        </a>
+      </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div><div class="col mh-100 overflow-auto px-0"><nav
+    class="navbar navbar-expand navbar-bg-light sticky-top border-bottom"
+  >
+    <div class="container-fluid"><button
+        type="button"
+        class="btn d-block d-xl-none fs-5"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+        aria-controls="offcanvas"
+      >
+        <span class="bi bi-list"></span>
+      </button>
+      
+      <div class="col-8">
+        
+          <div class="row justify-content-center justify-content-xl-start p-2 ps-xl-3 text-center"><div class="col-auto">
+      <span
+        class="d-inline d-sm-none text-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-title="Custom allocators in Rust"
+      >
+        Custom allocator…
+      </span>
+      <span
+        class="d-none d-sm-inline text-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-title="Custom allocators in Rust"
+      >
+        Custom allocators in Rust
+      </span>
+    </div>
+  </div>
+        
+      </div>
+
+      <button
+    type="button" data-bs-toggle="modal" data-bs-target="#searchModal"
+    class="btn border border-0"
+  >
+    <span class="bi bi-search fs-5"></span>
+  </button>
+    </div>
+  </nav><div class="d-flex flex-column h-100"><main class="container">
+    <div class="row justify-content-center mt-5 mb-5">
+      <div class="col-11 col-lg-10 col-xxl-9">
+        <h1 class="mb-4 display-4">
+          Custom allocators in Rust
+        </h1>
+        <p>In this article I'll explore several ways of customizing memory allocation in Rust.
+If you want to follow along, you'll need <a rel="noopener nofollow noreferrer" target="_blank" href="https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust">nightly</a> for some parts; also we're going to gloss over a lot of details first for brevity's sake – don't expect to be able to compile the introductory examples.</p>
+<h2 id="peeling-back-the-curtain-what-even-is-an-allocation">Peeling back the curtain - what even is an allocation?</h2>
+<p>At its very core, allocating memory means &quot;give me a pointer that I can use for reading and writing data&quot;.
+In most systems programming, there's usually two different kinds of memory: stack and heap.
+Stack allocations happen automatically as part of a function call. They are fast and cheap, but Rust needs to know your objects' required size at compile time.</p>
+<pre data-lang="rust" style="background-color:#282a36;color:#f8f8f2;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="font-style:italic;color:#8be9fd;">fn </span><span style="color:#50fa7b;">do_something</span><span>() </span><span style="color:#ffffff;">{
+</span><span>    </span><span style="color:#6272a4;">// put some numbers on the stack
+</span><span>    </span><span style="font-style:italic;color:#8be9fd;">let </span><span style="color:#ff79c6;">mut</span><span> items </span><span style="color:#ff79c6;">= </span><span>[</span><span style="color:#bd93f9;">0</span><span style="font-style:italic;color:#8be9fd;">u8</span><span>; </span><span style="color:#bd93f9;">200</span><span>];
+</span><span>    </span><span style="color:#6272a4;">// we can even change them
+</span><span>    items[</span><span style="color:#bd93f9;">0</span><span>] </span><span style="color:#ff79c6;">= </span><span style="color:#bd93f9;">10</span><span>;
+</span><span style="color:#ffffff;">}
+</span></code></pre>
+<p>When this function is called, somewhere deep down in your computer a stack pointer is bumped to make room for these items. Let's say we're implementing a virtual machine, then something roughly along those lines needs to happen:</p>
+<pre data-lang="rust" style="background-color:#282a36;color:#f8f8f2;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#6272a4;">// initial state
+</span><span style="font-style:italic;color:#8be9fd;">let </span><span style="color:#ff79c6;">mut</span><span> stack_ptr </span><span style="color:#ff79c6;">= </span><span style="color:#bd93f9;">0xffff_ffff</span><span>;
+</span><span>
+</span><span style="color:#6272a4;">// when `do_something()` is called, reserve space for our array. 
+</span><span style="color:#6272a4;">// stacks usually grow downwards.
+</span><span>stack_ptr </span><span style="color:#ff79c6;">-= </span><span style="color:#bd93f9;">200 </span><span style="color:#ff79c6;">* </span><span style="text-decoration:underline;color:#66d9ef;">size_of</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>&lt;</span><span style="font-style:italic;color:#8be9fd;">u8</span><span>&gt;();
+</span><span>
+</span><span style="color:#6272a4;">// initialize array
+</span><span style="color:#ff79c6;">for</span><span> idx </span><span style="color:#ff79c6;">in </span><span style="color:#bd93f9;">0</span><span style="color:#ff79c6;">..</span><span style="color:#bd93f9;">200 </span><span style="color:#ffffff;">{
+</span><span>    </span><span style="font-style:italic;color:#8be9fd;">let</span><span> item_ptr </span><span style="color:#ff79c6;">=</span><span> stack_ptr </span><span style="color:#ff79c6;">+</span><span> idx </span><span style="color:#ff79c6;">* </span><span style="text-decoration:underline;color:#66d9ef;">size_of</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>&lt;</span><span style="font-style:italic;color:#8be9fd;">u8</span><span>&gt;();
+</span><span>    </span><span style="color:#ff79c6;">unsafe </span><span style="color:#ffffff;">{
+</span><span>        </span><span style="color:#ff79c6;">*</span><span>(item_ptr </span><span style="color:#ff79c6;">as *mut </span><span style="font-style:italic;color:#8be9fd;">u8</span><span>) </span><span style="color:#ff79c6;">= </span><span style="color:#bd93f9;">0</span><span>;
+</span><span>    </span><span style="color:#ffffff;">}
+</span><span style="color:#ffffff;">}
+</span><span>
+</span><span style="color:#6272a4;">// execute `items[0] = 10`;
+</span><span style="font-style:italic;color:#8be9fd;">let</span><span> first_item_ptr </span><span style="color:#ff79c6;">=</span><span> stack_ptr;
+</span><span style="color:#ff79c6;">unsafe </span><span style="color:#ffffff;">{
+</span><span>    </span><span style="color:#ff79c6;">*</span><span>(first_item_ptr </span><span style="color:#ff79c6;">as *mut </span><span style="font-style:italic;color:#8be9fd;">u8</span><span>) </span><span style="color:#ff79c6;">= </span><span style="color:#bd93f9;">10</span><span>;
+</span><span style="color:#ffffff;">}
+</span><span>
+</span><span style="color:#6272a4;">// return from function call
+</span><span>stack_ptr </span><span style="color:#ff79c6;">+= </span><span style="color:#bd93f9;">200 </span><span style="color:#ff79c6;">* </span><span style="text-decoration:underline;color:#66d9ef;">size_of</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>&lt;</span><span style="font-style:italic;color:#8be9fd;">u8</span><span>&gt;();
+</span></code></pre>
+<p>Allocating <em>and deallocating</em> is blazingly fast with just one pointer addition/subtraction. Neat! </p>
+<p>But a dynamically sized array won't work:</p>
+<pre data-lang="rust" style="background-color:#282a36;color:#f8f8f2;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="font-style:italic;color:#8be9fd;">fn </span><span style="color:#50fa7b;">dyn_alloc_stack</span><span>(</span><span style="font-style:italic;color:#ffb86c;">num_items</span><span>: </span><span style="font-style:italic;color:#8be9fd;">usize</span><span>) </span><span style="color:#ffffff;">{
+</span><span>    </span><span style="color:#6272a4;">// error[E0435]: attempt to use a non-constant value in a constant
+</span><span>    </span><span style="font-style:italic;color:#8be9fd;">let</span><span> items </span><span style="color:#ff79c6;">= </span><span>[</span><span style="color:#bd93f9;">0</span><span style="font-style:italic;color:#8be9fd;">u8</span><span>; num_items];
+</span><span style="color:#ffffff;">}
+</span></code></pre>
+<p>Sadface. Not to worry, there's an easy fix - <em>just use a <code>Vec</code></em>:</p>
+<pre data-lang="rust" style="background-color:#282a36;color:#f8f8f2;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="font-style:italic;color:#8be9fd;">fn </span><span style="color:#50fa7b;">dyn_alloc_heap</span><span>(</span><span style="font-style:italic;color:#ffb86c;">num_items</span><span>: </span><span style="font-style:italic;color:#8be9fd;">usize</span><span>) </span><span style="color:#ffffff;">{
+</span><span>    </span><span style="font-style:italic;color:#8be9fd;">let </span><span style="color:#ff79c6;">mut</span><span> items </span><span style="color:#ff79c6;">= </span><span>vec![</span><span style="color:#bd93f9;">0</span><span style="font-style:italic;color:#8be9fd;">u8</span><span>; num_items];
+</span><span>    items[</span><span style="color:#bd93f9;">0</span><span>] </span><span style="color:#ff79c6;">= </span><span style="color:#bd93f9;">10</span><span>;
+</span><span>    </span><span style="color:#6272a4;">// we can even append stuff!
+</span><span>    </span><span style="color:#6272a4;">// commented out to keep the upcoming pseudocode short.
+</span><span>    </span><span style="color:#6272a4;">// items.push(123);
+</span><span style="color:#ffffff;">}
+</span></code></pre>
+<p>The function name already gave it away - the backing memory for this <code>Vec</code> comes from the other magical place: The Heap. Heap allocations are handled <em>at runtime</em> by an allocator - typically this is deferred to your operating system. What's not to like? Well… let's revisit out mock virtual machine. 
+The stack pointer handling happens here as well, but we'll ignore it to focus on the heap.</p>
+<pre data-lang="rust" style="background-color:#282a36;color:#f8f8f2;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#6272a4;">// when `dyn_alloc_heap` is called, a `Vec` is constructed. 
+</span><span style="color:#6272a4;">// Internally it does something roughly like this:
+</span><span style="font-style:italic;color:#8be9fd;">let</span><span> items_ptr </span><span style="color:#ff79c6;">= </span><span style="color:#8be9fd;">malloc</span><span>(num_items </span><span style="color:#ff79c6;">* </span><span style="text-decoration:underline;color:#66d9ef;">size_of</span><span style="text-decoration:underline;color:#ff79c6;">::</span><span>&lt;</span><span style="font-style:italic;color:#8be9fd;">u8</span><span>&gt;());
+</span><span style="color:#ff79c6;">unsafe </span><span style="color:#ffffff;">{
+</span><span>    </span><span style="color:#ff79c6;">*</span><span>(items_ptr </span><span style="color:#ff79c6;">as *mut </span><span style="font-style:italic;color:#8be9fd;">u8</span><span>) </span><span style="color:#ff79c6;">= </span><span style="color:#bd93f9;">10</span><span>;
+</span><span style="color:#ffffff;">}
+</span><span>
+</span><span style="color:#6272a4;">// Note that the `Vec` object itself is stored *on the stack* - only its contents live on the heap.
+</span><span style="color:#6272a4;">// Once this `Vec` goes out of scope it is dropped, which leads to:
+</span><span style="color:#8be9fd;">free</span><span>(items_ptr);
+</span></code></pre>
+<p>so instead of incrementing/decrementing the stack pointer we're doing two entire function calls to handle heap memory - <code>malloc</code> and <code>free</code>. What's worse, their actual implementation of those isn't even part of our program (at this point - more on that later), instead we need to ask the operating system by doing a <a rel="noopener nofollow noreferrer" target="_blank" href="https://en.wikipedia.org/wiki/System_call">syscall</a>.</p>
+<p>To put it mildly, this is effin' expensive in comparison. Let's be clear though: this usually isn't a problem, don't optimize before you've benchmarked, yadda yadda.</p>
+<p>But what if it <em>does</em> matter? Or you don't even <em>have</em> an operating system? Maybe because you're writing one yourself, or are working with <em>bare metal</em> embedded devices?</p>
+<h2 id="detour-heapless">Detour: heapless</h2>
+<p>middle ground blub</p>
+<h2 id="detour-reference-types">Detour: reference types</h2>
+<p>pass this vec - look at File::write or something</p>
+<ul>
+<li>separate article, dyn, box, refcell etc</li>
+</ul>
+
+      </div>
+    </div>
+  </main><footer class="container-fluid mt-auto">
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <div class="row pt-3 pb-4 border-top">
+          <div class="col-12 col-md-6 mb-2 mb-md-0 text-center text-md-start">
+            <small class="text-secondary">
+              © 2025
+              <a 
+                href="https://anatol.versteht.es/"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Anatol Ulrich&period;
+              </a>
+              <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                data-bs-toggle="tooltip"
+                data-bs-title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International  ( CC BY-NC-SA 4.0) License by the author."
+                class="text-secondary text-decoration-none"
+              >
+                Some rights reserved.
+              </a>
+            </small>
+          </div>
+          <div class="col-12 col-md-6 text-center text-md-end">
+            <small class="text-secondary">
+              Powered by
+              <a 
+                href="https://www.getzola.org/"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Zola
+              </a>
+              with
+              <a 
+                href="https://github.com/gersonbdev/ataraxia-zola"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Ataraxia
+              </a>
+              theme.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-body p-0">
+      <div class="sidebar container-fluid vh-100">
+        <div class="row h-100">
+          <div
+            class="col mh-100 px-0 overflow-auto"
+          >
+            <aside class="d-flex flex-column justify-content-between h-100">
+              <div class="mb-4 pt-5 px-3 text-center">
+                <div class="sidebar-avatar mb-2 mx-auto border border-3 rounded-circle">
+                  <a href="https://anatol.versteht.es/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://spookyvision.github.io/images/avatar.jpg"
+      alt="Anatol Ulrich"
+      class="img-fluid"
+    >
+  </a>
+                </div>
+                <div>
+                  <a
+                    href="https://spookyvision.github.io"
+                    class="sidebar-title fs-5 fw-bold text-decoration-none"
+                  >
+                    Anatol Ulrich
+                  </a>
+                </div>
+              </div>
+
+              <div class="sidebar-nav list-group my-auto rounded-0 text-start"><a
+        href="https://spookyvision.github.io/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Home"
+      >
+        <span class="sidebar-nav-icon bi bi-house ms-2 me-1 fs-4"></span>
+        <span class="sidebar-nav-text">Home</span>
+      </a><a
+        href="https://spookyvision.github.io/blog/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Blog"
+      >
+        <span class="sidebar-nav-icon bi bi-file-earmark-text ms-2 me-1 fs-4"></span>
+        <span class="sidebar-nav-text">Blog</span>
+      </a></div>
+
+              <div class="sidebar-social mt-4 pb-4 px-3">
+                <div class="container-fluid">
+                  <div class="row justify-content-center">
+                    <div class="col-auto px-2">
+        <a
+          href="https://github.com/spookyvision"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='GitHub'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-github"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://chaos.social/@dngrs"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Mastodon'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-mastodon"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://twitter.com/pandora9001"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Twitter'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-twitter"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://www.linkedin.com/in/teresting-ball"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='LinkedIn'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-linkedin"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="mailto:e+gh-pages@mail.taugt.net"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Email'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-envelope-fill"></span>
+        </a>
+      </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">
+          Search
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div
+          id="searchInput" role="search" 
+          class="d-flex mb-3 border rounded-5 bg-white"
+        >
+          <input
+            id="search" type="search"
+            class="form-control border border-0 rounded-5 rounded-end"
+            placeholder="Search"
+            aria-label="Search"
+          >
+          <div class="rounded-5 rounded-start py-2 ps-2 pe-3">
+            <span class="bi bi-search"></span>
+          </div>
+        </div>
+        <div class="search-results">
+          <div class="search-results__items">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src="https://spookyvision.github.io/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    const myModal = document.getElementById('searchModal');
+    const myInput = document.getElementById('searchInput');
+
+    myModal.addEventListener('shown.bs.modal', () => {
+      myInput.focus()
+    });
+  </script>
+  <script src="https://spookyvision.github.io/elasticlunr.min.js"></script>
+  <script src="https://spookyvision.github.io/search_index.en.js"></script><script src="https://spookyvision.github.io/assets/js/search/search.js"></script>
+</body>
+</html>
