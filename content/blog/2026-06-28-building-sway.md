@@ -8,7 +8,7 @@ Sadly, the [official sway build instructions](https://github.com/swaywm/sway/wik
 
 Even with other distros though, you will be in for a few surprises if you want to have a full-featured build with all optional items enabled…
 
-Since I didn't expect things to get so involved I didn't keep a proper track record from the beginning, so I'm using my shell history and educated guesses. Expect things to be out of order and incomplete - [feedback](https://TODO) welcome.
+Since I didn't expect things to get so involved I didn't keep a proper track record from the beginning, so I'm using my shell history and educated guesses. Expect things to be out of order and incomplete - [feedback](https://chaos.social/@dngrs/116828883787861727) welcome.
 
 ## Rough reconstruction of steps taken
 
