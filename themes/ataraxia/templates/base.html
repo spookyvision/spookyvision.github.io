@@ -29,6 +29,12 @@
   {%- block head -%}{%- endblock head -%}
   {{ seo::google_search_console() }}
   {{ seo::google_analytics() }}
+  {% block rss %}
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path="rss.xml", trailing_slash=false) }}">
+{% endblock %}
+{% block atom %}
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path="rss.xml", trailing_slash=false) }}">
+{% endblock %}
 </head>
 <body>
   <div class="container-fluid vh-100">

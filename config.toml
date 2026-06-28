@@ -75,8 +75,8 @@ url = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
 [languages.en]
 title = "Anatol Ulrich"
 description = "Digital Wizard"
-generate_feed = true
-feed_filename = "atom.xml"
+generate_feeds = true
+feed_filenames = ["atom.xml", "rss.xml"]
 taxonomies = [
     { name = "tags", feed = true, paginate_by = 5 },
     { name = "categories", feed = true, paginate_by = 5 },
@@ -110,9 +110,6 @@ full_copyright = """\
 
 
 [markdown]
-highlight_code = true
-# extra_syntaxes_and_themes = []
-highlight_theme = "dracula"
 
 render_emoji = true
 
@@ -122,6 +119,8 @@ external_links_no_referrer = true
 
 smart_punctuation = false
 
+[markdown.highlighting]
+theme = "dracula"
 
 [search]
 include_title = true
