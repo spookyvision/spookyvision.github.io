@@ -168,4 +168,50 @@ Oh no, our shiny new dependency libraries cannot be found! Well then.
 LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu:/usr/local/lib /usr/local/bin/sway
 ```
 
-Hurray.
+Hurray, almost there!
+
+### WHAT DO YOU MEAN, ALMOST THERE?!
+
+Welp, one of the reasons to run a modern sway is that it supports screen sharing of application windows since version 0.12 (released in May 2026). But that's not enough - we also need a wlroots desktop portal that understands this.
+
+### OKAY, BACK TO THE DRAWING BOARD
+
+- remove the system package, it will get in the way
+- build and install `xdg-desktop-por`- no wait, install its dependencies first 🙄
+- add a systemd unit for our custom build
+
+here's my `~/.config/systemd/user/xdg-desktop-portal-wlr.service`:
+
+```systemd
+[Unit]
+Description=Portal service (wlroots implementation)
+PartOf=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.impl.portal.desktop.wlr
+Environment=LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu:/usr/local/lib
+ExecStart=/usr/local/libexec/xdg-desktop-portal-wlr
+Restart=on-failure
+```
+
+once that's in place, install the portal:
+
+```sh
+systemctl --user stop xdg-desktop-portal-wlr.service
+sudo apt remove xdg-desktop-portal-wlr
+
+git clone --depth=1 https://github.com/benhoyt/inih.git
+cd inih
+meson setup build/ --prefix=/usr/local 
+ninja -C build/ install
+cd ..
+
+git clone --depth=1 https://github.com/emersion/xdg-desktop-portal-wlr.git
+cd xdg-desktop-portal-wlr
+meson setup build/ --prefix=/usr/local 
+
+systemctl daemon-reload
+```
