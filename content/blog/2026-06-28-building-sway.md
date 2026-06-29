@@ -215,3 +215,14 @@ meson setup build/ --prefix=/usr/local
 
 systemctl daemon-reload
 ```
+
+for completeness' sake: this portal needs to be explicitly set as preferred, like so (`~/.config/xdg-desktop-portal/sway-portals.conf`):
+
+```ini
+[preferred]
+# use xdg-desktop-portal-gtk for every portal interface
+default=gtk
+# except for the xdg-desktop-portal-wlr supplied interfaces
+org.freedesktop.impl.portal.Screencast=wlr
+org.freedesktop.impl.portal.Screenshot=wlr
+```
