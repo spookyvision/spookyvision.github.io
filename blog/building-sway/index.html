@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building sway from source on Ubuntu derivates - Anatol Ulrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="stylesheet" href="https://spookyvision.github.io/assets/css/custom.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"><link rel="apple-touch-icon" sizes="180x180" href="https://spookyvision.github.io/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://spookyvision.github.io/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://spookyvision.github.io/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://spookyvision.github.io/images/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://spookyvision.github.io/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#ffffff"><link rel="canonical" href="https://spookyvision.github.io/blog/building-sway/" />
+  <meta name="author" content="Anatol Ulrich"><meta property="article:published_time" content='2026-06-28' /><meta name="generator" content="Zola">
+  <meta property="og:title" content="Building sway from source on Ubuntu derivates" />
+  <meta property="og:url" content="https://spookyvision.github.io/blog/building-sway/" /><meta property="og:site_name" content="Anatol Ulrich" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" /><meta name="twitter:creator" content="@pandora9001" />
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://spookyvision.github.io/rss.xml">
+
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://spookyvision.github.io/rss.xml">
+
+</head>
+<body>
+  <div class="container-fluid vh-100">
+    <div class="row h-100"><div
+    class="sidebar d-none d-lg-block col-lg-3 col-xl-2 mh-100 p-0 overflow-auto"
+  >
+    <aside class="d-flex flex-column justify-content-between h-100">
+      <div class="d-none d-md-block mb-4 pt-5 px-4 text-center">
+        <div class="sidebar-avatar mb-2 mx-auto border border-3 rounded-circle">
+          <a href="https://anatol.versteht.es/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://spookyvision.github.io/images/avatar.jpg"
+      alt="Anatol Ulrich"
+      class="img-fluid"
+    >
+  </a>
+        </div>
+        <div class="mb-1">
+          <a
+            href="https://spookyvision.github.io"
+            class="sidebar-title fs-5 fw-bold text-decoration-none"
+          >
+            Anatol Ulrich
+          </a>
+        </div>
+        <div class="fw-light">
+          Digital Wizard
+        </div>
+      </div>
+
+      <div class="sidebar-nav list-group my-auto rounded-0 text-center"><a
+        href="https://spookyvision.github.io/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Home"
+      >
+        <span class="sidebar-nav-icon bi bi-house d-none fs-4"></span>
+        <span class="sidebar-nav-text d-none d-md-inline">
+          Home
+        </span>
+      </a><a
+        href="https://spookyvision.github.io/blog/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Blog"
+      >
+        <span class="sidebar-nav-icon bi bi-file-earmark-text d-none fs-4"></span>
+        <span class="sidebar-nav-text d-none d-md-inline">
+          Blog
+        </span>
+      </a></div>
+
+      <div class="sidebar-social d-none d-md-block mt-4 pb-4 px-4">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-auto px-2">
+        <a
+          href="https://github.com/spookyvision"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='GitHub'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-github"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://chaos.social/@dngrs"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Mastodon'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-mastodon"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://twitter.com/pandora9001"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Twitter'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-twitter"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://www.linkedin.com/in/teresting-ball"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='LinkedIn'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-linkedin"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="mailto:e+gh-pages@mail.taugt.net"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Email'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-envelope-fill"></span>
+        </a>
+      </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div><div class="col mh-100 overflow-auto px-0"><nav
+    class="navbar navbar-expand navbar-bg-light sticky-top border-bottom"
+  >
+    <div class="container-fluid"><button
+        type="button"
+        class="btn d-block d-lg-none fs-5"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+        aria-controls="offcanvas"
+      >
+        <span class="bi bi-list"></span>
+      </button>
+      
+      <div class="col-8">
+        
+          <div class="row justify-content-center justify-content-lg-start p-2 ps-xl-3 text-center"><div class="col-auto d-none d-xl-block">
+        <a
+          href="https://spookyvision.github.io/blog/"
+          class="text-decoration-none"
+        >
+          Blog
+        </a>
+      </div>
+      <div class="col-auto d-none d-xl-block">
+        <span class="text-secondary">
+          »
+        </span>
+      </div><div class="col-auto">
+      <span
+        class="d-inline d-sm-none text-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-title="Building sway from source on Ubuntu derivates"
+      >
+        Building sway fr…
+      </span>
+      <span
+        class="d-none d-sm-inline text-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-title="Building sway from source on Ubuntu derivates"
+      >
+        Building sway from source on Ubuntu deri…
+      </span>
+    </div>
+  </div>
+        
+      </div>
+
+      <button
+    type="button" data-bs-toggle="modal" data-bs-target="#searchModal"
+    class="btn border border-0"
+  >
+    <span class="bi bi-search fs-5"></span>
+  </button>
+    </div>
+  </nav><div class="d-flex flex-column h-100"><main class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-11 col-lg-10 col-xxl-9">
+        <h1 class="mb-3">
+          Building sway from source on Ubuntu derivates
+        </h1>
+        <div class="row mb-3">
+          <div class="col-auto mb-2">
+            <small class="text-muted">
+              <time datetime="2026-06-28">
+                <a 
+                  href="#" data-bs-toggle="tooltip"
+                  data-bs-title="Sunday, June 28, 2026 12:00:00 AM UTC"
+                  class="text-muted text-decoration-none"
+                >
+                  June 28, 2026
+                </a>
+              </time>
+            </small>
+          </div>
+          
+        </div><div class="mb-5">
+          <h2 id="not-for-the-faint-of-heart">Not for the faint of heart</h2>
+<p>Sadly, the <a rel="noopener nofollow noreferrer external" target="_blank" href="https://github.com/swaywm/sway/wiki/Development-Setup">official sway build instructions</a> are a bit minimalistic and do not take into account that some system packages may be too old. I'm currently running Pop!OS (though once I find the time I'll replace that with Archbtw) and it was a bit of an adventure, as its most recent release is 24.04-LTS.</p>
+<p>Even with other distros though, you will be in for a few surprises if you want to have a full-featured build with all optional items enabled…</p>
+<p>Since I didn't expect things to get so involved I didn't keep a proper track record from the beginning, so I'm using my shell history and educated guesses. Expect things to be out of order and incomplete - <a rel="noopener nofollow noreferrer external" target="_blank" href="https://chaos.social/@dngrs/116828883787861727">feedback</a> welcome.</p>
+<h2 id="rough-reconstruction-of-steps-taken">Rough reconstruction of steps taken</h2>
+<h3 id="system-packages-that-still-can-be-used">System packages that still can be used</h3>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #50FA7B;">sudo</span><span style="color: #F1FA8C;"> apt build-dep sway</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># aaaand some additional packages required by the deps we are going to build.</span></span>
+<span class="giallo-l"><span style="color: #6272A4;"># Can probably be trimmed, and some things may be missing that I already had installed, e.g. m4</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #50FA7B;">sudo</span><span style="color: #F1FA8C;"> apt install bison libxcb-xkb-dev libxcb-util1 libxcb-util-dev xcb-proto lua5.4 liblua5.4-dev hwdata liblcms2-dev</span><span style="color: #FF79C6;"> \</span></span>
+<span class="giallo-l"><span>glslang-tools</span><span style="color: #F1FA8C;"> libcairo2-dev libcap-dev libdbus-1-dev libdisplay-info-dev libevdev-dev libgdk-pixbuf2.0-dev libjson-c-dev</span><span style="color: #FF79C6;"> \</span></span>
+<span class="giallo-l"><span>libpam0g-dev</span><span style="color: #F1FA8C;"> libpango1.0-dev libpcre2-dev libpixman-1-dev libseat-dev libsystemd-dev libvulkan-dev libwayland-egl1 libxcb-ewmh-dev scdoc</span></span></code></pre><h3 id="build-dependencies-from-source">Build dependencies from source</h3>
+<p>Most dependencies can be built with a simple <code>meson setup build/ --prefix=/usr/local</code>, followed by <code>ninja -C build/ install</code>. Neither require running as root, <code>ninja</code> will ask for privileges when installing. sweet. For <code>wayland</code> we're skipping docs, as this cuts down on further dependencies.</p>
+<p>When possible, clones are done with <code>--depth=1</code> to speed things up (this only fetches <code>HEAD</code> and not the entire history).</p>
+<p>Notable exceptions:</p>
+<ul>
+<li><code>wlroots</code> requires an older version of <code>libliftoff</code> for some reason</li>
+<li><code>libdisplay-info</code> has subprojects that must be downloaded</li>
+<li><code>libxkbcommon</code> HEAD requires a more recent <code>meson</code> than the distro provides, and I really didn't feel like going down <em>that</em> path, so I randomly picked an older release</li>
+<li>Xorg <code>macros</code>: uses autoconf (argh)</li>
+<li><code>libxcb-errors</code> uses autoconf (argh) and won't find dependent macros installed to <code>/usr/local</code>. Fortunately this is easily fixed by setting <code>ACLOCAL_PATH</code>. It also requires manual submodule (argh) init</li>
+</ul>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #6272A4;"># wayland</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://gitlab.freedesktop.org/wayland/wayland.git</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> wayland</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local -Ddocumentation=false</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># wayland-protocols</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://gitlab.freedesktop.org/wayland/wayland-protocols.git</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> wayland-protocols</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># drm</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://gitlab.freedesktop.org/mesa/drm</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> drm</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># libxkbcommon</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://github.com/xkbcommon/libxkbcommon.git</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> libxkbcommon</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> checkout xkbcommon-1.11.0</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># Xorg macros</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone https://gitlab.freedesktop.org/xorg/util/macros</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> macros</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">./autogen.sh</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">./configure</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">make</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">sudo</span><span style="color: #F1FA8C;"> make install</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">export</span><span style="color: #BD93F9;"> ACLOCAL_PATH</span><span style="color: #FF79C6;">=</span><span>/</span><span style="color: #BD93F9;">usr</span><span>/</span><span style="color: #BD93F9;">local</span><span>/</span><span style="color: #BD93F9;">share</span><span>/</span><span style="color: #BD93F9;">aclocal</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># libxcb-errors</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://gitlab.freedesktop.org/xorg/lib/libxcb-errors</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> libxcb-errors</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> submodule update</span><span style="color: #BD93F9;"> --init</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">./autogen.sh</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">./configure</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">make</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">sudo</span><span style="color: #F1FA8C;"> make install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># pixman</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://gitlab.freedesktop.org/pixman/pixman.git</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> pixman</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># libinput</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://gitlab.freedesktop.org/libinput/libinput</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># libdisplay-info</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://gitlab.freedesktop.org/emersion/libdisplay-info.git</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> libdisplay-info</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> subprojects download</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6272A4;"># libliftoff</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone https://gitlab.freedesktop.org/emersion/libliftoff.git</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> libliftoff</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> checkout v0.4</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span></code></pre><h3 id="build-sway">Build sway</h3>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://github.com/swaywm/sway.git</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> subprojects download</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span></code></pre>
+<p>Finally. After <code>meson setup</code> you should hopefully see this:</p>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="plain"><span class="giallo-l"><span>wlroots 0.21.0-dev</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    drm-backend      : YES</span></span>
+<span class="giallo-l"><span>    x11-backend      : YES</span></span>
+<span class="giallo-l"><span>    libinput-backend : YES</span></span>
+<span class="giallo-l"><span>    xwayland         : YES</span></span>
+<span class="giallo-l"><span>    gles2-renderer   : YES</span></span>
+<span class="giallo-l"><span>    vulkan-renderer  : YES</span></span>
+<span class="giallo-l"><span>    gbm-allocator    : YES</span></span>
+<span class="giallo-l"><span>    udmabuf-allocator: YES</span></span>
+<span class="giallo-l"><span>    session          : YES</span></span>
+<span class="giallo-l"><span>    color-management : YES</span></span>
+<span class="giallo-l"><span>    xcb-errors       : YES</span></span>
+<span class="giallo-l"><span>    egl              : YES</span></span>
+<span class="giallo-l"><span>    libliftoff       : YES</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>sway 1.13-dev</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    gdk-pixbuf: YES</span></span>
+<span class="giallo-l"><span>    tray      : YES</span></span>
+<span class="giallo-l"><span>    man-pages : YES</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  Subprojects</span></span>
+<span class="giallo-l"><span>    wlroots   : YES</span></span></code></pre><h3 id="running-it">Running it</h3>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="plain"><span class="giallo-l"><span>$ /usr/local/bin/sway</span></span>
+<span class="giallo-l"><span>/usr/local/bin/sway: error while loading shared libraries: libwlroots-0.21.so: cannot open shared object file: No such file or directory</span></span></code></pre>
+<p>Oh no, our shiny new dependency libraries cannot be found! Well then.</p>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #BD93F9;">LD_LIBRARY_PATH</span><span style="color: #FF79C6;">=</span><span style="color: #F1FA8C;">/usr/local/lib/x86_64-linux-gnu:/usr/local/lib</span><span style="color: #50FA7B;"> /usr/local/bin/sway</span></span></code></pre>
+<p>Hurray, almost there!</p>
+<h3 id="what-do-you-mean-almost-there">WHAT DO YOU MEAN, ALMOST THERE?!</h3>
+<p>Welp, one of the reasons to run a modern sway is that it supports screen sharing of application windows since version 0.12 (released in May 2026). But that's not enough - we also need a wlroots desktop portal that understands this.</p>
+<h3 id="okay-back-to-the-drawing-board">OKAY, BACK TO THE DRAWING BOARD</h3>
+<ul>
+<li>remove the system package, it will get in the way</li>
+<li>build and install <code>xdg-desktop-por</code>- no wait, install its dependencies first 🙄</li>
+<li>add a systemd unit for our custom build</li>
+</ul>
+<p>here's my <code>~/.config/systemd/user/xdg-desktop-portal-wlr.service</code>:</p>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="systemd"><span class="giallo-l"><span>[Unit]</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">Description=</span><span>Portal service (wlroots implementation)</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">PartOf=</span><span>graphical-session.target</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">After=</span><span>graphical-session.target</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">ConditionEnvironment=</span><span>WAYLAND_DISPLAY</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[Service]</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">Type=</span><span style="color: #BD93F9;">dbus</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">BusName=</span><span>org.freedesktop.impl.portal.desktop.wlr</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">Environment=</span><span style="color: #FFB86C;font-style: italic;">LD_LIBRARY_PATH</span><span style="color: #FF79C6;">=</span><span>/usr/local/lib/x86_64-linux-gnu:/usr/local/lib</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">ExecStart=</span><span>/usr/local/libexec/xdg-desktop-portal-wlr</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">Restart=</span><span style="color: #BD93F9;">on-failure</span></span></code></pre>
+<p>once that's in place, install the portal:</p>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #50FA7B;">systemctl</span><span style="color: #BD93F9;"> --user</span><span style="color: #F1FA8C;"> stop xdg-desktop-portal-wlr.service</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">sudo</span><span style="color: #F1FA8C;"> apt remove xdg-desktop-portal-wlr</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://github.com/benhoyt/inih.git</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> inih</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span><span> </span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">ninja</span><span style="color: #BD93F9;"> -C</span><span style="color: #F1FA8C;"> build/ install</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #50FA7B;">git</span><span style="color: #F1FA8C;"> clone</span><span style="color: #BD93F9;"> --depth=1</span><span style="color: #F1FA8C;"> https://github.com/emersion/xdg-desktop-portal-wlr.git</span></span>
+<span class="giallo-l"><span style="color: #8BE9FD;">cd</span><span style="color: #F1FA8C;"> xdg-desktop-portal-wlr</span></span>
+<span class="giallo-l"><span style="color: #50FA7B;">meson</span><span style="color: #F1FA8C;"> setup build/</span><span style="color: #BD93F9;"> --prefix=/usr/local</span><span> </span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #50FA7B;">systemctl</span><span style="color: #F1FA8C;"> daemon-reload</span></span></code></pre>
+<p>for completeness' sake: this portal needs to be explicitly set as preferred, like so (<code>~/.config/xdg-desktop-portal/sway-portals.conf</code>):</p>
+<pre class="giallo" style="color: #F8F8F2; background-color: #282A36;"><code data-lang="ini"><span class="giallo-l"><span>[preferred]</span></span>
+<span class="giallo-l"><span style="color: #6272A4;"># use xdg-desktop-portal-gtk for every portal interface</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">default=</span><span>gtk</span></span>
+<span class="giallo-l"><span style="color: #6272A4;"># except for the xdg-desktop-portal-wlr supplied interfaces</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">org.freedesktop.impl.portal.Screencast=</span><span>wlr</span></span>
+<span class="giallo-l"><span style="color: #FF79C6;">org.freedesktop.impl.portal.Screenshot=</span><span>wlr</span></span></code></pre>
+        </div>
+        
+        
+      </div>
+    </div>
+  </main><div class="container">
+    <div class="row justify-content-center mt-3 mb-4">
+      <div class="col-11 col-lg-10 col-xxl-9"></div>
+    </div>
+  </div><footer class="container-fluid mt-auto">
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <div class="row pt-3 pb-4 border-top">
+          <div class="col-12 col-md-6 mb-2 mb-md-0 text-center text-md-start">
+            <small class="text-secondary">
+              © 2026
+              <a 
+                href="https://anatol.versteht.es/"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Anatol Ulrich&period;
+              </a>
+              <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                data-bs-toggle="tooltip"
+                data-bs-title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International  ( CC BY-NC-SA 4.0) License by the author."
+                class="text-secondary text-decoration-none"
+              >
+                Some rights reserved.
+              </a>
+            </small>
+          </div>
+          <div class="col-12 col-md-6 text-center text-md-end">
+            <small class="text-secondary">
+              Powered by
+              <a 
+                href="https://www.getzola.org/"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Zola
+              </a>
+              with
+              <a 
+                href="https://github.com/gersonbdev/ataraxia-zola"
+                target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none"
+              >
+                Ataraxia
+              </a>
+              theme.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-body p-0">
+      <div class="sidebar container-fluid vh-100">
+        <div class="row h-100">
+          <div
+            class="col mh-100 px-0 overflow-auto"
+          >
+            <aside class="d-flex flex-column justify-content-between h-100">
+              <div class="mb-4 pt-5 px-3 text-center">
+                <div class="sidebar-avatar mb-2 mx-auto border border-3 rounded-circle">
+                  <a href="https://anatol.versteht.es/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://spookyvision.github.io/images/avatar.jpg"
+      alt="Anatol Ulrich"
+      class="img-fluid"
+    >
+  </a>
+                </div>
+                <div>
+                  <a
+                    href="https://spookyvision.github.io"
+                    class="sidebar-title fs-5 fw-bold text-decoration-none"
+                  >
+                    Anatol Ulrich
+                  </a>
+                </div>
+              </div>
+
+              <div class="sidebar-nav list-group my-auto rounded-0 text-start"><a
+        href="https://spookyvision.github.io/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Home"
+      >
+        <span class="sidebar-nav-icon bi bi-house ms-2 me-1 fs-4"></span>
+        <span class="sidebar-nav-text">Home</span>
+      </a><a
+        href="https://spookyvision.github.io/blog/"
+        class="sidebar-nav-item list-group-item list-group-item-action border border-0"
+        data-bs-toggle="tooltip" data-bs-title="Blog"
+      >
+        <span class="sidebar-nav-icon bi bi-file-earmark-text ms-2 me-1 fs-4"></span>
+        <span class="sidebar-nav-text">Blog</span>
+      </a></div>
+
+              <div class="sidebar-social mt-4 pb-4 px-3">
+                <div class="container-fluid">
+                  <div class="row justify-content-center">
+                    <div class="col-auto px-2">
+        <a
+          href="https://github.com/spookyvision"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='GitHub'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-github"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://chaos.social/@dngrs"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Mastodon'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-mastodon"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://twitter.com/pandora9001"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Twitter'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-twitter"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="https://www.linkedin.com/in/teresting-ball"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='LinkedIn'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-linkedin"></span>
+        </a>
+      </div><div class="col-auto px-2">
+        <a
+          href="mailto:e+gh-pages@mail.taugt.net"
+          target="_blank" rel="noopener noreferrer me"
+          data-bs-toggle="tooltip"
+          data-bs-title='Email'
+          class="text-decoration-none"
+        >
+          <span class="bi bi-envelope-fill"></span>
+        </a>
+      </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">
+          Search
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div
+          id="searchInput" role="search" 
+          class="d-flex mb-3 border rounded-5 bg-white"
+        >
+          <input
+            id="search" type="search"
+            class="form-control border border-0 rounded-5 rounded-end"
+            placeholder="Search"
+            aria-label="Search"
+          >
+          <div class="rounded-5 rounded-start py-2 ps-2 pe-3">
+            <span class="bi bi-search"></span>
+          </div>
+        </div>
+        <div class="search-results">
+          <div class="search-results__items">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src="https://spookyvision.github.io/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    const myModal = document.getElementById('searchModal');
+    const myInput = document.getElementById('searchInput');
+
+    myModal.addEventListener('shown.bs.modal', () => {
+      myInput.focus()
+    });
+  </script>
+  <script src="https://spookyvision.github.io/elasticlunr.min.js"></script>
+  <script src="https://spookyvision.github.io/search_index.en.js"></script><script src="https://spookyvision.github.io/assets/js/search/search.js"></script>
+</body>
+</html>
